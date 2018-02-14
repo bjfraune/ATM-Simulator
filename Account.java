@@ -1,15 +1,10 @@
-
 public class Account {
 	int accountNumber,accountBalance,pin;
 	/**
 	 * @param input is the entered pin from the customer
 	 * @return whether input is valid for this account
 	 */
-	public Account(int accNum, int pn){
-		accountNumber = accNum;
-		accountBalance = 0;
-		pin = pn;
-	}
+
 	public Account(int accNum, int bal, int pn){
 		accountNumber = accNum;
 		accountBalance = bal;
