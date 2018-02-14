@@ -15,7 +15,10 @@ public class Account {
 		accountBalance = bal;
 		pin = pn;
 	}
-	public boolean validate(int input){ 
+	public int getAccNum(){
+		return accountNumber;
+	}
+	public boolean validatePin(int input){ 
 		if(input == pin)
 			return true;
 		else
@@ -25,7 +28,7 @@ public class Account {
 		return accountBalance;
 	}
 	public boolean withdraw(int amountW){
-		if(amountW <= 0 || amountW > getBalance())
+		if(amountW < 0 || amountW > getBalance())
 			return false;
 		else{
 			accountBalance-= amountW;
@@ -33,7 +36,7 @@ public class Account {
 		}	
 	}
 	public boolean deposit(int amountD){
-		if(amountD <= 0)
+		if(amountD < 0)
 			return false;
 		else{
 			accountBalance += amountD;
