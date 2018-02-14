@@ -11,10 +11,13 @@ public class Bank {
 	bankAcc[1] = new Account(6789, 60, 4321);
 	
 	}
-	//HashMap<Account> accounts;
+	/**
+	 * 
+	 * @param nextInt is the account number from the customer
+	 */
 	
 	public static void validate(int nextInt) {
-		// TODO Auto-generated method stub
+		if(nextInt <0 || nextInt >9999) return;		
 		boolean foundAcc = false;
 		for(int i =0; i< 10 && foundAcc == false; ++i){
 			if(bankAcc[i].getAccNum() == nextInt){
@@ -33,15 +36,19 @@ public class Bank {
 					}while(selection>4 || selection <1);
 					
 					if(selection == 1){
-						do{
 						System.out.println("Amount to withdraw:");
-						}while(bankAcc[i].withdraw(in.nextInt()));
+						if(bankAcc[i].withdraw(in.nextInt()))
+							System.out.println("Withdraw successful");
+						
+						else
+							System.out.println("Withdraw failed");
 					}
-					
 					else if(selection ==2){
-						do{
 						System.out.println("Amount to deposit:");
-						}while(bankAcc[i].deposit(in.nextInt()));
+						if(bankAcc[i].deposit(in.nextInt()))
+							System.out.println("Deposit successful");
+						else
+							System.out.println("Deposit failed");
 					}
 					else if(selection == 3)
 						System.out.println("Account balance: "+ bankAcc[i].getBalance());
