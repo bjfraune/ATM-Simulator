@@ -27,7 +27,7 @@ public class Account {
 	 * @param withdrawAmount
 	 * @return whether withdraw was successful (bool) */
 	public boolean withdrawl(double withdrawAmount) {
-		if (pin != enteredPin) throw new IllegalStateException("Cannot deposit without correct pin.");
+		if (pin != enteredPin) throw new IllegalStateException("Cannot withdrawl without correct pin.");
 		else if (balance-withdrawAmount <= 0 || withdrawAmount < 0) return false; // Special cases: can't withdraw more than your balance; can't withdraw negative money
 		balance -= withdrawAmount;
 		return true;
