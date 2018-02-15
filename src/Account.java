@@ -5,42 +5,39 @@ public class Account {
 
 	public Account(int pin, double balance) {
 		this.pin = pin;
-		if (balance >= 0) {
-			this.balance = balance;
-		}
+		if (balance >= 0) 
+			this.balance = balance;	
 	}
-
+	/** Allows the user to check their balance
+	 * @return account balance*/
 	public double getBalance() {
-		if (pin != enteredPin) {
-			throw new IllegalStateException("Cannot check balance without correct pin.");
-		}
+		if (pin != enteredPin) throw new IllegalStateException("Cannot check balance without correct pin.");
 		return balance;
 	}
-
-	public boolean deposit(double money) {
-		if (pin != enteredPin) {
-			throw new IllegalStateException("Cannot deposit without correct pin.");
-		}
-		if (money <= 0) {
-			return false;
-		}
-		balance += money;
+	/**deposit money into account
+	 * @param depositAmount
+	 * @return whether deposit was successful (bool)*/
+	public boolean deposit(double depositAmount) {
+		if (pin != enteredPin) throw new IllegalStateException("Cannot deposit without correct pin.");
+		else if (depositAmount <= 0) return false; // Special case: can't deposit negative money
+		balance += depositAmount;
 		return true;
 	}
-
-	public boolean withdrawl(double money) {
-		if (pin != enteredPin) {
-			throw new IllegalStateException("Cannot deposit without correct pin.");
-		}
-		if (balance-money <= 0) {
-			return false;
-		}
-		balance -= money;
+	/**withdraw money from account
+	 * @param withdrawAmount
+	 * @return whether withdraw was successful (bool) */
+	public boolean withdrawl(double withdrawAmount) {
+		if (pin != enteredPin) throw new IllegalStateException("Cannot deposit without correct pin.");
+		else if (balance-withdrawAmount <= 0 || withdrawAmount < 0) return false; // Special cases: can't withdraw more than your balance; can't withdraw negative money
+		balance -= withdrawAmount;
 		return true;
 	}
-
+	/**validate the pin
+	 * @param enteredPin
+	 * @return if pin was valid
+	 */
 	public boolean validate(int enteredPin) {
 		this.enteredPin = enteredPin;
-		return pin == enteredPin ? true : false;
+		return pin == enteredPin;
 	}
 }
