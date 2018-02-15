@@ -37,7 +37,6 @@ public class Account {
 	 * @return if pin was valid
 	 */
 	public boolean validate(int enteredPin) {
-		this.enteredPin = enteredPin;
 		return pin == enteredPin;
 	}
 }
