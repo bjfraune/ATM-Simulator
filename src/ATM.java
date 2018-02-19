@@ -4,7 +4,14 @@ public class ATM {
 
 	public static void main(String[] args) {
 		// startup atm
+		initialize();
 		start();
+	}
+	public static void initialize() {
+		// TODO Auto-generated method stub
+		Bank b1 = new Bank();		
+		b1.createAccount(1234, 6789, 80);
+		b1.createAccount(6789, 4321, 60);
 	}
 /** Turns the ATM on
  * @note: We setup the accounts at the begining of start() per the lab4 instructions.
@@ -14,30 +21,25 @@ public class ATM {
  */
 	public static void start() {
 		//setup bank per lab4 pdf
-		Bank b1 = new Bank();
+
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		String entry= "";
-		b1.createAccount(1234, 6789, 80);
-		b1.createAccount(6789, 4321, 60);
 
-
-	
 		while (!entry.equals("exit")) {	// 
 			try {	
 				System.out.println("Welcome to the ATM.\nTo begin, please enter account number: "); 
 				entry = input.nextLine();
 				if(entry.equals("exit"))
 					break;
-				Account customer = b1.validate(Integer.parseInt(entry));
-				if (customer == null) 
-					System.out.println("Invalid account number."); 
+				int accountNum =Integer.parseInt(entry);					
+				System.out.print("Please enter your pin number: ");
+				int pinEntered =  Integer.parseInt(input.nextLine());
+				boolean custExists = Bank.validate(accountNum, pinEntered);
+				if (!custExists) 
+					System.out.println("Invalid account number or pin."); 
 				else {
-					System.out.print("Please enter your pin number: ");
-					entry = input.nextLine();
-					if (!customer.validate(Integer.parseInt(entry)))
-						System.out.println("Invalid pin entered.");
-					else {
+					Account customer = Bank.getAcc(accountNum);					
 						while (!entry.equals("0")) {
 							System.out.println("0=Quit, 1=Check Balance, 2=Deposit, 3=Withdrawl");
 							entry = input.nextLine();
@@ -65,8 +67,7 @@ public class ATM {
 							} 
 							else 
 								System.out.println("Invalid entry, please try again.");							
-						}
-					}
+						}				
 				}
 			}
 			catch(NumberFormatException e) { 

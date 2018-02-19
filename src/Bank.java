@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class Bank {
 
-	private HashMap<Integer, Account> Account;
+	private static HashMap<Integer, Account> Account;
 	/**All the accounts are stored with in the bank via HashMap.*/
 	 
 	public Bank() {
@@ -21,9 +21,14 @@ public class Bank {
 	}
 	/**does the account exist?
 	 * @param accountNumber
+	 * @param pinEntered 
 	 * @return null if the account doesn't exist
 	 */
-	public Account validate(Integer accountNumber) {
-		return Account.get(accountNumber);
+	public static boolean validate(Integer accountNumber, int pinEntered) {
+		Account doesItExist = Account.get(accountNumber);
+		return doesItExist != null && doesItExist.validate(pinEntered);
+	}
+	public static Account getAcc(int accountNum) {
+		return Account.get(accountNum);
 	}
 }

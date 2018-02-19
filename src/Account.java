@@ -1,6 +1,6 @@
 public class Account {
 
-	private int pin, enteredPin;
+	private int pin;
 	private double balance;
 
 	public Account(int pin, double balance) {
@@ -11,15 +11,13 @@ public class Account {
 	/** Allows the user to check their balance
 	 * @return account balance*/
 	public double getBalance() {
-		if (pin != enteredPin) throw new IllegalStateException("Cannot check balance without correct pin.");
 		return balance;
 	}
 	/**deposit money into account
 	 * @param depositAmount
 	 * @return whether deposit was successful (bool)*/
 	public boolean deposit(double depositAmount) {
-		if (pin != enteredPin) throw new IllegalStateException("Cannot deposit without correct pin.");
-		else if (depositAmount <= 0) return false; // Special case: can't deposit negative money
+		if (depositAmount <= 0) return false; // Special case: can't deposit negative money
 		balance += depositAmount;
 		return true;
 	}
@@ -27,8 +25,7 @@ public class Account {
 	 * @param withdrawAmount
 	 * @return whether withdraw was successful (bool) */
 	public boolean withdrawl(double withdrawAmount) {
-		if (pin != enteredPin) throw new IllegalStateException("Cannot withdrawl without correct pin.");
-		else if (balance-withdrawAmount <= 0 || withdrawAmount < 0) return false; // Special cases: can't withdraw more than your balance; can't withdraw negative money
+		if (balance-withdrawAmount < 0 || withdrawAmount < 0) return false; // Special cases: can't withdraw more than your balance; can't withdraw negative money
 		balance -= withdrawAmount;
 		return true;
 	}
