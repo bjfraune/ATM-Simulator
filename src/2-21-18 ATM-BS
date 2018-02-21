@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+public class ATM {
+
+	public static void main(String[] args) {
+		// startup atm
+		initialize();
+		start();
+	}
+	public static void initialize() {
+		// TODO Auto-generated method stub
+		Bank b1 = new Bank();		
+		b1.createAccount(1234, 6789, 80);
+		b1.createAccount(6789, 4321, 60);
+	}
+/** Turns the ATM on
+ * @note: We setup the accounts at the begining of start() per the lab4 instructions.
+ * @category main while loop---
+ * main loop for ATM 
+ * all validation for account/ pin, withdraw, deposit, check balance functions happen with this loop
+ */
+	public static void start() {
+		//setup bank per lab4 pdf
+
+		@SuppressWarnings("resource")
+		Scanner input = new Scanner(System.in);
+		String entry= "";
+		ATMprinter p = new ATMprinter();
+
+		while (!entry.equals("exit")) {	// 
+			try {	
+				p.printThis("Welcome to the ATM.\nTo begin, please enter account number: "); 
+				entry = input.nextLine();
+				if(entry.equals("exit"))
+					break;
+				int accountNum =Integer.parseInt(entry);					
+				p.printThis("Please enter your pin number: ");
+				int pinEntered =  Integer.parseInt(input.nextLine());
+				boolean custExists = Bank.validate(accountNum, pinEntered);
+				if (!custExists) 
+					p.printThis("Invalid account number or pin."); 
+				else {
+					Account customer = Bank.getAcc(accountNum);					
+						while (!entry.equals("0")) {
+							p.printThis("0=Quit, 1=Check Balance, 2=Deposit, 3=Withdrawl");
+							entry = input.nextLine();
+							if (entry.equals("0")) {
+								p.printThis("Goodbye.");
+								break;
+							} 
+							else if (entry.equals("1"))
+								p.printThis("Your current balance is: $" + customer.getBalance()); 
+							else if (entry.equals("2")) {
+								p.printThis("Enter how much would you like to deposit: $");
+								entry = input.nextLine();
+								if(customer.deposit(Double.parseDouble(entry)))
+									p.printThis("Your new balance is: $" + customer.getBalance());
+								else 
+									p.printThis("Invalid deposit amount.");
+							} 
+							else if (entry.equals("3")) {
+								p.printThis("Enter how much would you like to withdrawl: $");
+								entry = input.nextLine();
+								if(customer.withdrawl(Double.parseDouble(entry)))
+									p.printThis("Your new balance is: $" + customer.getBalance());									
+								else 
+									p.printThis("Invalid withdraw amount.");
+							} 
+							else 
+								p.printThis("Invalid entry, please try again.");							
+						}				
+				}
+			}
+			catch(NumberFormatException e) { 
+				p.printThis("ERROR! INVALID:" +e.getMessage());	
+			}
+		}
+	}
+}
