@@ -2,28 +2,32 @@ import java.util.Scanner;
 
 public class ATM {
 
-	public static void main(String[] args) {
-		// startup atm
-		initialize();
+	Bank bank;
+	CardReader cardReader;
+	ATMprinter printer;
+	Scanner input;
+	int cashAmount;
+
+	public ATM(Bank bank, int initialCashValue) {
+		if(bank == null || cardReader == null || printer == null || initialCashValue < 0) {
+			throw new IllegalArgumentException("Invalid ATM argument(s)");
+		}
+		this.bank = bank;
+		this.cardReader = new CardReader();
+		this.printer = new ATMprinter();
+		this.cashAmount = initialCashValue;
+		
+		input = new Scanner(System.in);
+		
 		start();
 	}
-	public static void initialize() {
-		// TODO Auto-generated method stub
-		Bank b1 = new Bank();		
-		b1.createAccount(1234, 6789, 80);
-		b1.createAccount(6789, 4321, 60);
-	}
-/** Turns the ATM on
- * @note: We setup the accounts at the begining of start() per the lab4 instructions.
- * @category main while loop---
- * main loop for ATM 
- * all validation for account/ pin, withdraw, deposit, check balance functions happen with this loop
- */
-	public static void start() {
+
+
+	public void start() {
 		//setup bank per lab4 pdf
 
 		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
+//		Scanner input = new Scanner(System.in);
 		String entry= "";
 
 		while (!entry.equals("exit")) {	// 
