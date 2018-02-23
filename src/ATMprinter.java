@@ -24,11 +24,9 @@ public class ATMprinter {
 	 */
 	public ATMprinter() throws IOException {
 		dateFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
-		LocalTime.now();
 		printer = new PrintWriter("receipt.txt");
 	}
 	/**
-	 * 
 	 * @param message --> (String) message to be printed to console
 	 */
 	public void consolePrint(String message){
