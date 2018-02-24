@@ -31,7 +31,6 @@ public class Simulator {
 				case "BUTTON" : 
 					acc = new Account(pin, acc.getBalance());
 					switch(input[1]){
-					//i don't know if anything under this switch statement is correct 
 					case "W" :
 						//withdraw
 						break;
