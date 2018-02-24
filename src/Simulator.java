@@ -33,18 +33,22 @@ public class Simulator {
 					switch(input[1]){
 					case "W" :
 						//withdraw
+						String wselected = sc.nextLine().split(" ");
+						if(wselected[0].equals(NUM))
+							acc.withdrawl(wselected[1]);
+						printer.receiptPrint("w "+acc.getBalance(), true);
 						break;
 					case "CB" :
-						acc.getBalance();
+						printer.receiptPrint(acc.getBalance(),true);
 						break;
 					case "CANCEL" :
 						printer.receiptPrint("Transaction canceled! GoodBye!",true);
 						break;
 					default :
-						System.out.print("error reading Button");
+						System.out.print("Error reading Button");
 					}
 				default :
-					System.out.println("error reading input");
+					System.out.println("Error reading input");
 				}
 			}	
 		}
