@@ -29,6 +29,7 @@ public class ATMprinter {
 			System.out.println(message);
 			if(includeTime) printer.println(LocalTime.now().format(dateFormat)+" " + message);
 			else printer.println(message);
+			printer.flush();
 	}
 	public void shutDownPrinter() {
 		printer.close();

@@ -9,10 +9,15 @@ public class ATMtestcases {
 	/**
 	 * Successful	validate	and	withdrawal	of	$20	from	account	1234;
 	 */
+	public ATM ATMinitialize() {
+		ATM a = new ATM();
+		a.initialize();
+		return a;
+	}
 	@Test
 
 	public void testA() {
-		ATM.initialize();
+		ATMinitialize();
 		assertTrue(Bank.validate(1234,6789));
 		Account Testing = Bank.getAcc(1234);
 		assertTrue(Testing.withdrawl(20));
@@ -22,7 +27,7 @@ public class ATMtestcases {
 	 */
 	@Test
 	public void testB() {
-		ATM.initialize();
+		ATMinitialize();
 		assertTrue(Bank.validate(1234, 6789));
 		Account Testing = Bank.getAcc(1234);
 		assertTrue(Testing.withdrawl(80));
@@ -32,7 +37,7 @@ public class ATMtestcases {
 	 */
 	@Test
 	public void testC() {
-		ATM.initialize();
+		ATMinitialize();
 		assertFalse(Bank.validate(1, 4321));
 		assertFalse(Bank.validate(6789, 1));
 	}
@@ -41,7 +46,7 @@ public class ATMtestcases {
 	 */
 	@Test
 	public void testD() {
-		ATM.initialize();
+		ATMinitialize();
 		assertTrue(Bank.validate(6789, 4321));
 		Account Testing = Bank.getAcc(6789);
 		assertTrue(Testing.deposit(20));
@@ -51,7 +56,7 @@ public class ATMtestcases {
 	 */
 	@Test
 	public void testE() {
-		ATM.initialize();
+		ATMinitialize();
 		assertTrue(Bank.validate(1234, 6789));
 		Account Testing = Bank.getAcc(1234);
 		assertFalse(Testing.withdrawl(-1));
