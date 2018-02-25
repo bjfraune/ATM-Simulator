@@ -63,7 +63,7 @@ public class ATM {
 							p.printThis("BUTTON " + entry, true);
 							switch(entry) {
 							case	"CANCEL" :
-								p.printThis("ENJECT CARD", false);
+								p.printThis("EJECT CARD", false);
 								break;
 
 							case 	"CB" :
