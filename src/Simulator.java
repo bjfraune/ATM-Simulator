@@ -1,13 +1,23 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
+
+
+/**
+ * @author Fawzieh
+ * Simulator class opens up a transactions.txt file, reads it line by line and executes
+ * each line depending on what it asks for.
+ * NOTE: ALL output is printed out to receipt.txt file through the
+ * recieptPrint method in ATMprinter class
+ */
 public class Simulator {
-	public Simulator(){
+	public Simulator() throws IOException{
 		CardReader cardInput = new CardReader();
 		ATMprinter printer = new ATMprinter();
 		int acctNum=0, pin=0;
-		Account acc = new Account(1111, 3);
+		Account acc = new Account(1111,0);
 		String[] input = new String[2];
 		try (Scanner sc = new Scanner(new File("transactions.txt"))){
 			while(sc.hasNextLine()) {
@@ -32,14 +42,13 @@ public class Simulator {
 					acc = new Account(pin, acc.getBalance());
 					switch(input[1]){
 					case "W" :
-						//withdraw
-						String wselected = sc.nextLine().split(" ");
-						if(wselected[0].equals(NUM))
-							acc.withdrawl(wselected[1]);
+						String [] wselected = sc.nextLine().split(" ");
+						if(wselected[0].equals("NUM"))
+							acc.withdrawl(Integer.parseInt(wselected[1]));
 						printer.receiptPrint("w "+acc.getBalance(), true);
 						break;
 					case "CB" :
-						printer.receiptPrint(acc.getBalance(),true);
+						printer.receiptPrint(Double.toString(acc.getBalance()),true);
 						break;
 					case "CANCEL" :
 						printer.receiptPrint("Transaction canceled! GoodBye!",true);
