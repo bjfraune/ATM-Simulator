@@ -1,10 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Simulator {
-	public Simulator() throws IOException{
+	public Simulator(){
 		CardReader cardInput = new CardReader();
 		ATMprinter printer = new ATMprinter();
 		int acctNum=0, pin=0;
@@ -32,21 +31,24 @@ public class Simulator {
 				case "BUTTON" : 
 					acc = new Account(pin, acc.getBalance());
 					switch(input[1]){
-					//i don't know if anything under this switch statement is correct 
 					case "W" :
 						//withdraw
+						String wselected = sc.nextLine().split(" ");
+						if(wselected[0].equals(NUM))
+							acc.withdrawl(wselected[1]);
+						printer.receiptPrint("w "+acc.getBalance(), true);
 						break;
 					case "CB" :
-						acc.getBalance();
+						printer.receiptPrint(acc.getBalance(),true);
 						break;
 					case "CANCEL" :
 						printer.receiptPrint("Transaction canceled! GoodBye!",true);
 						break;
 					default :
-						System.out.print("error reading Button");
+						System.out.print("Error reading Button");
 					}
 				default :
-					System.out.println("error reading input");
+					System.out.println("Error reading input");
 				}
 			}	
 		}
